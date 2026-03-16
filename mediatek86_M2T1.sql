@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : lun. 16 mars 2026 à 16:35
+-- Généré le : lun. 16 mars 2026 à 20:55
 -- Version du serveur : 8.4.7
 -- Version de PHP : 8.3.28
 
@@ -93,7 +93,9 @@ DELIMITER ;
 DROP TRIGGER IF EXISTS `trigger_suppression`;
 DELIMITER $$
 CREATE TRIGGER `trigger_suppression` BEFORE DELETE ON `commandedocument` FOR EACH ROW BEGIN
-    DELETE FROM exemplaire WHERE id = OLD.idLivreDvd;
+    IF OLD.idSuivi != 'LI' THEN
+        DELETE FROM exemplaire WHERE id = OLD.idLivreDvd;
+    END IF;
 END
 $$
 DELIMITER ;
