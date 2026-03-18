@@ -164,6 +164,27 @@ namespace MediaTekDocuments.dal
         }
 
         /// <summary>
+        /// Controle l'authentification d'un utilisateur
+        /// </summary>
+        /// <param name="login">login de l'utilisateur</param>
+        /// <param name="pwd">mot de passe de l'utilisateur</param>
+        /// <returns>l'objet Utilisateur si authentification correcte, null sinon</returns>
+        public Utilisateur ControleAuthentification(string login, string pwd)
+        {
+            Dictionary<string, string> champs = new Dictionary<string, string>();
+            champs.Add("login", login);
+            champs.Add("pwd", pwd);
+            String jsonChamps = JsonConvert.SerializeObject(champs);
+            List<Utilisateur> liste = TraitementRecup<Utilisateur>(GET, "utilisateur/" + jsonChamps, null);
+            if (liste != null && liste.Count > 0)
+            {
+                return liste[0];
+            }
+            return null;
+        }
+
+
+        /// <summary>
         /// Traitement de la récupération du retour de l'api, avec conversion du json en liste pour les select (GET)
         /// </summary>
         /// <typeparam name="T"></typeparam>

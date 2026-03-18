@@ -24,10 +24,24 @@ namespace MediaTekDocuments.view
         /// <summary>
         /// Constructeur : création du contrôleur lié à ce formulaire
         /// </summary>
-        internal FrmMediatek()
+        /// <param name="utilisateur">l'utilisateur connecté</param>
+        internal FrmMediatek(Utilisateur utilisateur)
         {
             InitializeComponent();
             this.controller = new FrmMediatekController();
+            GererAcces(utilisateur);
+        }
+
+        /// <summary>
+        /// Gère les accès selon le service de l'utilisateur connecté
+        /// </summary>
+        /// <param name="utilisateur">l'utilisateur connecté</param>
+        private void GererAcces(Utilisateur utilisateur)
+        {
+            if (utilisateur.Service.Id == "PRE")
+            {
+                tabOngletsApplication.TabPages.Remove(tabReceptionRevue);
+            }
         }
 
         /// <summary>
