@@ -12,6 +12,11 @@ using Serilog;
 namespace MediaTekDocuments.dal
 {
     /// <summary>
+    /// Couche d'accès aux données de l'application MediatekDocuments
+    /// </summary>
+    internal class NamespaceDoc { }
+
+    /// <summary>
     /// Classe d'accès aux données
     /// </summary>
     public class Access

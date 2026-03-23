@@ -5,6 +5,11 @@ using MediaTekDocuments.model;
 namespace MediaTekDocuments.controller
 {
     /// <summary>
+    /// Couche contrôleur de l'application MediatekDocuments
+    /// </summary>
+    internal class NamespaceDoc { }
+
+    /// <summary>
     /// Controleur de FrmAuthentification
     /// </summary>
     class FrmAuthentificationController

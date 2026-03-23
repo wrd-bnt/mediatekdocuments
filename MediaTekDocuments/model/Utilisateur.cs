@@ -7,12 +7,34 @@ namespace MediaTekDocuments.model
     /// </summary>
     public class Utilisateur
     {
+        /// <summary>
+        /// Identifiant de l'utilisateur
+        /// </summary>
         public int Id { get; }
+
+        /// <summary>
+        /// Login de l'utilisateur
+        /// </summary>
         public string Login { get; }
+
+        /// <summary>
+        /// Mot de passe de l'utilisateur
+        /// </summary>
         public string Pwd { get; }
+
+        /// <summary>
+        /// Identifiant du service
+        /// </summary>
         public string IdService { get; }
+
+        /// <summary>
+        /// Libellé du service
+        /// </summary>
         public string LibelleService { get; }
 
+        /// <summary>
+        /// Service de l'utilisateur
+        /// </summary>
         [JsonIgnore]
         public Service Service { get; private set; }
 

@@ -6,6 +6,11 @@ using System.Windows.Forms;
 namespace MediaTekDocuments.view
 {
     /// <summary>
+    /// Couche vue de l'application MediatekDocuments
+    /// </summary>
+    internal class NamespaceDoc { }
+
+    /// <summary>
     /// Fenetre d'authentification
     /// </summary>
     public partial class FrmAuthentification : Form

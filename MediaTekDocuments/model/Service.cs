@@ -1,11 +1,23 @@
 ﻿namespace MediaTekDocuments.model
 {
     /// <summary>
+    /// Classes métier de l'application MediatekDocuments
+    /// </summary>
+    internal class NamespaceDoc { }
+
+    /// <summary>
     /// Classe métier Service
     /// </summary>
     public class Service
     {
+        /// <summary>
+        /// Identifiant du service
+        /// </summary>
         public string Id { get; }
+
+        /// <summary>
+        /// Libellé du service
+        /// </summary>
         public string Libelle { get; }
 
         /// <summary>

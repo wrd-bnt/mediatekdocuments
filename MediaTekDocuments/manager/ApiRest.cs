@@ -5,6 +5,11 @@ using Newtonsoft.Json.Linq;
 namespace MediaTekDocuments.manager
 {
     /// <summary>
+    /// Gestionnaire de l'application MediatekDocuments
+    /// </summary>
+    internal class NamespaceDoc { }
+
+    /// <summary>
     /// Classe indépendante d'accès à une api rest avec éventuellement une "basic authorization"
     /// </summary>
     class ApiRest
