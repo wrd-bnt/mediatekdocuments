@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : lun. 16 mars 2026 à 20:55
+-- Généré le : mer. 25 mars 2026 à 22:04
 -- Version du serveur : 8.4.7
 -- Version de PHP : 8.3.28
 
@@ -238,6 +238,8 @@ CREATE TABLE IF NOT EXISTS `exemplaire` (
 
 INSERT INTO `exemplaire` (`id`, `numero`, `dateAchat`, `photo`, `idEtat`) VALUES
 ('10002', 418, '2021-12-01', '', '00001'),
+('10002', 419, '2026-03-25', '', '00001'),
+('10002', 420, '2026-03-25', '', '00001'),
 ('10007', 3237, '2021-11-23', '', '00001'),
 ('10007', 3238, '2021-11-30', '', '00001'),
 ('10007', 3239, '2021-12-07', '', '00001'),
@@ -477,6 +479,28 @@ INSERT INTO `revue` (`id`, `periodicite`, `delaiMiseADispo`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `service`
+--
+
+DROP TABLE IF EXISTS `service`;
+CREATE TABLE IF NOT EXISTS `service` (
+  `id` char(5) NOT NULL,
+  `libelle` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `service`
+--
+
+INSERT INTO `service` (`id`, `libelle`) VALUES
+('ADM', 'administratif'),
+('CUL', 'culture'),
+('PRE', 'prêts');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `suivi`
 --
 
@@ -496,6 +520,32 @@ INSERT INTO `suivi` (`id`, `libelle`) VALUES
 ('LI', 'livrée'),
 ('RE', 'réglée'),
 ('RL', 'relancée');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `utilisateur`
+--
+
+DROP TABLE IF EXISTS `utilisateur`;
+CREATE TABLE IF NOT EXISTS `utilisateur` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `login` varchar(50) NOT NULL,
+  `pwd` varchar(50) NOT NULL,
+  `idService` char(5) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_service` (`idService`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `utilisateur`
+--
+
+INSERT INTO `utilisateur` (`id`, `login`, `pwd`, `idService`) VALUES
+(1, 'admin', 'admin', 'ADM'),
+(2, 'employe_adm', 'adm123', 'ADM'),
+(3, 'employe_pret', 'pre123', 'PRE'),
+(4, 'employe_culture', 'cul123', 'CUL');
 
 --
 -- Contraintes pour les tables déchargées
@@ -554,6 +604,12 @@ ALTER TABLE `livres_dvd`
 --
 ALTER TABLE `revue`
   ADD CONSTRAINT `revue_ibfk_1` FOREIGN KEY (`id`) REFERENCES `document` (`id`);
+
+--
+-- Contraintes pour la table `utilisateur`
+--
+ALTER TABLE `utilisateur`
+  ADD CONSTRAINT `fk_service` FOREIGN KEY (`idService`) REFERENCES `service` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
