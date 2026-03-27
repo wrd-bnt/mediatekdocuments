@@ -18,6 +18,9 @@ L'application démarre désormais sur une fenêtre d'authentification. L'employ�
 
 **Service Culture (CUL) :** accès refusé. Un message informe l'employé que ses droits ne sont pas suffisants, puis l'application se ferme.
 
+<img width="320" height="143" alt="Fenetre_de_connexion" src="https://github.com/user-attachments/assets/4eeb5bf8-5e23-44b5-bc71-2740be2c1352" />
+
+
 ## Améliorations de la base de données
 
 ### Table suivi
