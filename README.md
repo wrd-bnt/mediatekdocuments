@@ -10,16 +10,21 @@ Les fonctionnalités ajoutées sont les suivantes : authentification avec gestio
 
 ## Authentification
 
-L'application démarre désormais sur une fenêtre d'authentification. L'employé saisit son login et son mot de passe. Selon son service d'appartenance, les droits d'accès sont différents.
+L'application démarre désormais sur une fenêtre d'authentification. L'employé saisit son login et son mot de passe. 
+
+<img width="320" height="143" alt="Fenetre_de_connexion" src="https://github.com/user-attachments/assets/4eeb5bf8-5e23-44b5-bc71-2740be2c1352" />
+
+Selon son service d'appartenance, les droits d'accès sont différents.
 
 **Service Administratif (ADM) :** accès total à toutes les fonctionnalités de l'application.
 
 **Service Prêts (PRE) :** accès en consultation uniquement aux onglets Livres, DVD et Revues. L'onglet "Parutions des revues" est masqué.
 
+<img width="1101" height="860" alt="Capture d&#39;écran 2026-03-27 070619" src="https://github.com/user-attachments/assets/a270d177-9a18-4ffa-83a0-1c794d525a19" />
+
 **Service Culture (CUL) :** accès refusé. Un message informe l'employé que ses droits ne sont pas suffisants, puis l'application se ferme.
 
-<img width="320" height="143" alt="Fenetre_de_connexion" src="https://github.com/user-attachments/assets/4eeb5bf8-5e23-44b5-bc71-2740be2c1352" />
-
+<img width="478" height="165" alt="Capture d&#39;écran 2026-03-27 070957" src="https://github.com/user-attachments/assets/62f941a8-3617-477f-a61a-52cbb01f64f6" />
 
 ## Améliorations de la base de données
 
