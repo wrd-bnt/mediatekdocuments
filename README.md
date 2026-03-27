@@ -51,6 +51,8 @@ Deux tables ont été ajoutées pour gérer l'authentification :
 - service : contient les 3 services (ADM, PRE, CUL)
 - utilisateur : contient les employés avec leur login, mot de passe et service d'appartenance
 
+<img width="1660" height="459" alt="Capture d&#39;écran 2026-03-27 072228" src="https://github.com/user-attachments/assets/5847427f-152a-47c4-948c-d89a07837da2" />
+
 ## Méthode ParutionDansAbonnement
 
 La méthode statique ParutionDansAbonnement a été ajoutée dans la classe Exemplaire du package model. Elle reçoit 3 dates en paramètre (date de commande, date de fin d'abonnement, date de parution) et retourne vrai si la date de parution est comprise entre les deux autres dates.
@@ -62,9 +64,11 @@ Serilog a été intégré dans la classe Access pour enregistrer les erreurs et 
 ## Tests unitaires
 
 4 tests unitaires ont été créés avec MSTest sur les classes du package model :
-- ExemplaireTests : test de la méthode ParutionDansAbonnement
-- ServiceTests : test de la classe Service
-- UtilisateurTests : test de la classe Utilisateur
+- ExemplaireTests : 1 test de la méthode ParutionDansAbonnement
+- ServiceTests : 2 tests de la classe Service
+- UtilisateurTests : 1 test de la classe Utilisateur
+
+<img width="1201" height="447" alt="Capture d&#39;écran 2026-03-27 071927" src="https://github.com/user-attachments/assets/a2322ae4-0dc2-4c88-9686-6fc7f277446a" />
 
 ## La base de données
 
@@ -91,8 +95,10 @@ Les tables ajoutées par rapport à la base d'origine sont : suivi, service, uti
 
 ### Installeur
 
-Un installeur ClickOnce est disponible dans le dossier install/ du dépôt. Il permet d'installer directement l'application sans Visual Studio. L'installeur utilise l'API en ligne disponible à l'adresse http://mediatekdocs86.atwebpages.com/ 
-Le mode opératoire pour utiliser l'API est dans le readme du dépôt : https://github.com/wrd-bnt/rest-mediatekdocuments 
+Un installeur ClickOnce est disponible dans le dossier install/ du dépôt. 
+Il permet d'installer directement l'application sans Visual Studio. 
+L'installeur utilise l'API en ligne déployée sur AwardSpace. 
+Le mode opératoire pour utiliser l'API est dans le readme du dépôt : https://github.com/wrd-bnt/rest-mediatekdocuments
 
 ### Documentation technique
 
