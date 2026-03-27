@@ -83,8 +83,8 @@ Les tables ajoutées par rapport à la base d'origine sont : suivi, service, uti
 ### Prérequis
 
 - Windows 10 ou supérieur
-- Visual Studio
-- WampServer
+- Visual Studio ou équivalent
+- WampServer ou équivalent
 - L'API REST rest_mediatekdocuments installée en local (voir dépôt : https://github.com/wrd-bnt/rest-mediatekdocuments)
 
 ### Installation
