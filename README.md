@@ -95,6 +95,8 @@ Les tables ajoutées par rapport à la base d'origine sont : suivi, service, uti
 - Dans Access.cs (dal), vérifier que l'URL pointe vers le local : private static readonly string uriApi = "http://localhost/rest_mediatekdocuments/";
 - Lancer l'application avec **Démarrer**
 
+Les identifiants de connexion sont fournis dans la fiche de réalisation professionnelle.
+
 ### Installeur
 
 Un installeur ClickOnce est disponible dans le dossier install/ du dépôt. 
