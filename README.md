@@ -106,4 +106,6 @@ Le mode opératoire pour utiliser l'API est dans le readme du dépôt : https://
 
 ### Documentation technique
 
-La documentation technique générée avec SandCastle Help File Builder est disponible dans le dossier doc/Help/ du dépôt.
+La documentation technique générée avec SandCastle Help File Builder est disponible :
+- Dans le dossier doc/Help/ du dépôt
+- En ligne : http://mediatekdocs86.atwebpages.com/doc-mediatekdocuments/Help/index.html
