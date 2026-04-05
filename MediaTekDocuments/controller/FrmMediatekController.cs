@@ -96,5 +96,54 @@ namespace MediaTekDocuments.controller
         {
             return access.CreerExemplaire(exemplaire);
         }
+
+        /// <summary>
+        /// Retourne les commandes d'un document (livre ou dvd)
+        /// </summary>
+        /// <param name="idLivreDvd">id du livre ou dvd concerné</param>
+        /// <returns>Liste d'objets CommandeDocuments</returns>
+        public List<CommandeDocument> GetCommandesDocument(string idLivreDvd)
+        {
+            return access.GetCommandesDocument(idLivreDvd);
+        }
+
+        /// <summary>
+        /// Retourne tous les suivis
+        /// </summary>
+        /// <returns>Liste d'objets Suivi</returns>
+        public List<Suivi> GetAllSuivis()
+        {
+            return access.GetAllSuivis();
+        }
+
+        /// <summary>
+        /// Crée une commande de document dans la BDD
+        /// </summary>
+        /// <param name="commande">la commande à créer</param>
+        /// <returns>true si la création a pu se faire</returns>
+        public bool CreerCommandeDocument(CommandeDocument commande)
+        {
+            return access.CreerCommandeDocument(commande);
+        }
+
+        /// <summary>
+        /// Modifie l'étape de suivi d'une commande dans la BDD
+        /// </summary>
+        /// <param name="commande">la commande à modifier</param>
+        /// <returns>true si la modification a pu se faire</returns>
+        public bool UpdateSuiviCommandeDocument(CommandeDocument commande)
+        {
+            return access.UpdateSuiviCommandeDocument(commande);
+        }
+
+        /// <summary>
+        /// Supprime une commande de document dans la BDD
+        /// </summary>
+        /// <param name="commande">la commande à supprimer</param>
+        /// <returns>true si la suppression a pu se faire</returns>
+        public bool SupprimerCommandeDocument(CommandeDocument commande)
+        {
+            return access.SupprimerCommandeDocument(commande);
+        }
     }
 }

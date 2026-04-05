@@ -24,7 +24,7 @@ namespace MediaTekDocuments.dal
         /// <summary>
         /// adresse de l'API
         /// </summary>
-        private static readonly string uriApi = "http://mediatekdocs86.atwebpages.com/";
+        private static readonly string uriApi = "http://localhost/rest_mediatekdocuments/";
         /// <summary>
         /// instance unique de la classe
         /// </summary>
@@ -43,7 +43,12 @@ namespace MediaTekDocuments.dal
         private const string POST = "POST";
         /// <summary>
         /// méthode HTTP pour update
-
+        /// </summary>
+        private const string PUT = "PUT";
+        /// <summary>
+        /// méthode HTTP pour delete
+        /// </summary>
+        private const string DELETE = "DELETE";
         /// <summary>
         /// Méthode privée pour créer un singleton
         /// initialise l'accès à l'API
@@ -194,6 +199,105 @@ namespace MediaTekDocuments.dal
             return null;
         }
 
+        /// <summary>
+        /// Retourne les commandes d'un document (livre ou dvd)
+        /// </summary>
+        /// <param name="idLivreDvd">id du livre ou dvd concerné</param>
+        /// <returns>Liste d'objets CommandeDocuments</returns>
+        public List<CommandeDocument> GetCommandesDocument(string idLivreDvd)
+        {
+            String jsonIdLivreDvd = convertToJson("idLivreDvd", idLivreDvd);
+            List<CommandeDocument> lesCommandes = TraitementRecup<CommandeDocument>(GET, "commandedocument/" + jsonIdLivreDvd, null);
+            return lesCommandes;
+        }
+
+        /// <summary>
+        /// Retourne tous les suivis à partir de la BDD
+        /// </summary>
+        /// <returns>Liste d'objets Suivi</returns>
+        public List<Suivi> GetAllSuivis()
+        {
+            List<Suivi> lesSuivis = TraitementRecup<Suivi>(GET, "suivi", null);
+            return lesSuivis;
+        }
+
+        /// <summary>
+        /// Crée une commande de document dans la BDD
+        /// </summary>
+        /// <param name="commande">la commande à créer</param>
+        /// <returns>true si la création a pu se faire</returns>
+        public bool CreerCommandeDocument(CommandeDocument commande)
+        {
+            try
+            {
+                // Insertion dans la table commande
+                Dictionary<string, object> champs1 = new Dictionary<string, object>();
+                champs1.Add("id", commande.Id);
+                champs1.Add("dateCommande", commande.DateCommande.ToString("yyyy-MM-dd"));
+                champs1.Add("montant", commande.Montant.ToString());
+                String jsonCommande = JsonConvert.SerializeObject(champs1);
+                List<CommandeDocument> liste1 = TraitementRecup<CommandeDocument>(POST, "commande", "champs=" + jsonCommande);
+                if (liste1 == null)
+                {
+                    Log.Error("Access.CreerCommandeDocument erreur insertion commande");
+                    return false;
+                }
+                // Insertion dans la table commandedocument
+                Dictionary<string, object> champs2 = new Dictionary<string, object>();
+                champs2.Add("id", commande.Id);
+                champs2.Add("nbExemplaire", commande.NbExemplaire);
+                champs2.Add("idLivreDvd", commande.IdLivreDvd);
+                champs2.Add("idSuivi", commande.IdSuivi);
+                String jsonCommandeDoc = JsonConvert.SerializeObject(champs2);
+                List<CommandeDocument> liste2 = TraitementRecup<CommandeDocument>(POST, "commandedocument", "champs=" + jsonCommandeDoc);
+                return (liste2 != null);
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Access.CreerCommandeDocument erreur={0}", ex.Message);
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Modifie l'étape de suivi d'une commande dans la BDD
+        /// </summary>
+        /// <param name="commande">la commande à modifier</param>
+        /// <returns>true si la modification a pu se faire</returns>
+        public bool UpdateSuiviCommandeDocument(CommandeDocument commande)
+        {
+            String jsonCommande = JsonConvert.SerializeObject(new { idSuivi = commande.IdSuivi });
+            try
+            {
+                List<CommandeDocument> liste = TraitementRecup<CommandeDocument>(PUT, "commandedocument/" + commande.Id, "champs=" + jsonCommande);
+                return (liste != null);
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Access.UpdateSuiviCommandeDocument erreur={0}", ex.Message);
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Supprime une commande de document dans la BDD
+        /// </summary>
+        /// <param name="commande">la commande à supprimer</param>
+        /// <returns>true si la suppression a pu se faire</returns>
+        public bool SupprimerCommandeDocument(CommandeDocument commande)
+        {
+            String jsonCommande = convertToJson("id", commande.Id);
+            try
+            {
+                List<CommandeDocument> liste = TraitementRecup<CommandeDocument>(DELETE, "commande/" + jsonCommande, null);
+                return (liste != null);
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Access.SupprimerCommandeDocument erreur={0}", ex.Message);
+            }
+            return false;
+        }
 
         /// <summary>
         /// Traitement de la récupération du retour de l'api, avec conversion du json en liste pour les select (GET)
