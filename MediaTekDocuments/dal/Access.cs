@@ -24,7 +24,7 @@ namespace MediaTekDocuments.dal
         /// <summary>
         /// adresse de l'API
         /// </summary>
-        private static readonly string uriApi = "http://localhost/rest_mediatekdocuments/";
+        private static readonly string uriApi = ConfigurationManager.AppSettings["uriApi"];
         /// <summary>
         /// instance unique de la classe
         /// </summary>
@@ -49,6 +49,14 @@ namespace MediaTekDocuments.dal
         /// méthode HTTP pour delete
         /// </summary>
         private const string DELETE = "DELETE";
+        /// <summary>
+        /// préfixe pour les paramètres de requête
+        /// </summary>
+        private const string CHAMPS = "champs=";
+        /// <summary>
+        /// format de date utilisé pour les requêtes
+        /// </summary>
+        private const string FORMAT_DATE = "yyyy-MM-dd";
         /// <summary>
         /// Méthode privée pour créer un singleton
         /// initialise l'accès à l'API
@@ -169,7 +177,7 @@ namespace MediaTekDocuments.dal
             String jsonExemplaire = JsonConvert.SerializeObject(exemplaire, new CustomDateTimeConverter());
             try
             {
-                List<Exemplaire> liste = TraitementRecup<Exemplaire>(POST, "exemplaire", "champs=" + jsonExemplaire);
+                List<Exemplaire> liste = TraitementRecup<Exemplaire>(POST, "exemplaire", CHAMPS + jsonExemplaire);
                 return (liste != null);
             }
             catch (Exception ex)
@@ -233,10 +241,10 @@ namespace MediaTekDocuments.dal
                 // Insertion dans la table commande
                 Dictionary<string, object> champs1 = new Dictionary<string, object>();
                 champs1.Add("id", commande.Id);
-                champs1.Add("dateCommande", commande.DateCommande.ToString("yyyy-MM-dd"));
+                champs1.Add("dateCommande", commande.DateCommande.ToString(FORMAT_DATE));
                 champs1.Add("montant", commande.Montant.ToString());
                 String jsonCommande = JsonConvert.SerializeObject(champs1);
-                List<CommandeDocument> liste1 = TraitementRecup<CommandeDocument>(POST, "commande", "champs=" + jsonCommande);
+                List<CommandeDocument> liste1 = TraitementRecup<CommandeDocument>(POST, "commande", CHAMPS + jsonCommande);
                 if (liste1 == null)
                 {
                     Log.Error("Access.CreerCommandeDocument erreur insertion commande");
@@ -249,7 +257,7 @@ namespace MediaTekDocuments.dal
                 champs2.Add("idLivreDvd", commande.IdLivreDvd);
                 champs2.Add("idSuivi", commande.IdSuivi);
                 String jsonCommandeDoc = JsonConvert.SerializeObject(champs2);
-                List<CommandeDocument> liste2 = TraitementRecup<CommandeDocument>(POST, "commandedocument", "champs=" + jsonCommandeDoc);
+                List<CommandeDocument> liste2 = TraitementRecup<CommandeDocument>(POST, "commandedocument", CHAMPS + jsonCommandeDoc);
                 return (liste2 != null);
             }
             catch (Exception ex)
@@ -269,7 +277,7 @@ namespace MediaTekDocuments.dal
             String jsonCommande = JsonConvert.SerializeObject(new { idSuivi = commande.IdSuivi });
             try
             {
-                List<CommandeDocument> liste = TraitementRecup<CommandeDocument>(PUT, "commandedocument/" + commande.Id, "champs=" + jsonCommande);
+                List<CommandeDocument> liste = TraitementRecup<CommandeDocument>(PUT, "commandedocument/" + commande.Id, CHAMPS + jsonCommande);
                 return (liste != null);
             }
             catch (Exception ex)
@@ -333,10 +341,10 @@ namespace MediaTekDocuments.dal
                 // Insertion dans la table commande
                 Dictionary<string, object> champs1 = new Dictionary<string, object>();
                 champs1.Add("id", abonnement.Id);
-                champs1.Add("dateCommande", abonnement.DateCommande.ToString("yyyy-MM-dd"));
+                champs1.Add("dateCommande", abonnement.DateCommande.ToString(FORMAT_DATE));
                 champs1.Add("montant", abonnement.Montant.ToString());
                 String jsonCommande = JsonConvert.SerializeObject(champs1);
-                List<Abonnement> liste1 = TraitementRecup<Abonnement>(POST, "commande", "champs=" + jsonCommande);
+                List<Abonnement> liste1 = TraitementRecup<Abonnement>(POST, "commande", CHAMPS + jsonCommande);
                 if (liste1 == null)
                 {
                     Log.Error("Access.CreerAbonnement erreur insertion commande");
@@ -345,10 +353,10 @@ namespace MediaTekDocuments.dal
                 // Insertion dans la table abonnement
                 Dictionary<string, object> champs2 = new Dictionary<string, object>();
                 champs2.Add("id", abonnement.Id);
-                champs2.Add("dateFinAbonnement", abonnement.DateFinAbonnement.ToString("yyyy-MM-dd"));
+                champs2.Add("dateFinAbonnement", abonnement.DateFinAbonnement.ToString(FORMAT_DATE));
                 champs2.Add("idRevue", abonnement.IdRevue);
                 String jsonAbonnement = JsonConvert.SerializeObject(champs2);
-                List<Abonnement> liste2 = TraitementRecup<Abonnement>(POST, "abonnement", "champs=" + jsonAbonnement);
+                List<Abonnement> liste2 = TraitementRecup<Abonnement>(POST, "abonnement", CHAMPS + jsonAbonnement);
                 return (liste2 != null);
             }
             catch (Exception ex)
@@ -423,7 +431,7 @@ namespace MediaTekDocuments.dal
         /// <param name="nom"></param>
         /// <param name="valeur"></param>
         /// <returns>couple au format json</returns>
-        private String convertToJson(Object nom, Object valeur)
+        private static String convertToJson(Object nom, Object valeur)
         {
             Dictionary<Object, Object> dictionary = new Dictionary<Object, Object>();
             dictionary.Add(nom, valeur);
@@ -437,7 +445,7 @@ namespace MediaTekDocuments.dal
         {
             public CustomDateTimeConverter()
             {
-                base.DateTimeFormat = "yyyy-MM-dd";
+                base.DateTimeFormat = FORMAT_DATE;
             }
         }
 

@@ -21,6 +21,9 @@ namespace MediaTekDocuments.view
         private readonly BindingSource bdgPublics = new BindingSource();
         private readonly BindingSource bdgRayons = new BindingSource();
         private readonly Random random = new Random();
+        private const string MSG_NUMERO_INTROUVABLE = "numéro introuvable";
+        private const string MSG_ERREUR = "Erreur";
+        private const string MSG_INFORMATION = "Information";
 
         /// <summary>
         /// Constructeur : création du contrôleur lié à ce formulaire
@@ -51,7 +54,7 @@ namespace MediaTekDocuments.view
         /// <param name="lesCategories">liste des objets de type Genre ou Public ou Rayon</param>
         /// <param name="bdg">bindingsource contenant les informations</param>
         /// <param name="cbx">combobox à remplir</param>
-        public void RemplirComboCategorie(List<Categorie> lesCategories, BindingSource bdg, ComboBox cbx)
+        public static void RemplirComboCategorie(List<Categorie> lesCategories, BindingSource bdg, ComboBox cbx)
         {
             bdg.DataSource = lesCategories;
             cbx.DataSource = bdg;
@@ -121,7 +124,7 @@ namespace MediaTekDocuments.view
                 }
                 else
                 {
-                    MessageBox.Show("numéro introuvable");
+                    MessageBox.Show(MSG_NUMERO_INTROUVABLE);
                     RemplirLivresListeComplete();
                 }
             }
@@ -436,7 +439,7 @@ namespace MediaTekDocuments.view
                 }
                 else
                 {
-                    MessageBox.Show("numéro introuvable");
+                    MessageBox.Show(MSG_NUMERO_INTROUVABLE);
                     RemplirDvdListeComplete();
                 }
             }
@@ -750,7 +753,7 @@ namespace MediaTekDocuments.view
                 }
                 else
                 {
-                    MessageBox.Show("numéro introuvable");
+                    MessageBox.Show(MSG_NUMERO_INTROUVABLE);
                     RemplirRevuesListeComplete();
                 }
             }
@@ -1058,7 +1061,7 @@ namespace MediaTekDocuments.view
                 }
                 else
                 {
-                    MessageBox.Show("numéro introuvable");
+                    MessageBox.Show(MSG_NUMERO_INTROUVABLE);
                 }
             }
         }
@@ -1188,19 +1191,19 @@ namespace MediaTekDocuments.view
                     }
                     else
                     {
-                        MessageBox.Show("numéro de publication déjà existant", "Erreur");
+                        MessageBox.Show("numéro de publication déjà existant", MSG_ERREUR);
                     }
                 }
                 catch
                 {
-                    MessageBox.Show("le numéro de parution doit être numérique", "Information");
+                    MessageBox.Show("le numéro de parution doit être numérique", MSG_INFORMATION);
                     txbReceptionExemplaireNumero.Text = "";
                     txbReceptionExemplaireNumero.Focus();
                 }
             }
             else
             {
-                MessageBox.Show("numéro de parution obligatoire", "Information");
+                MessageBox.Show("numéro de parution obligatoire", MSG_INFORMATION);
             }
         }
 
@@ -1292,7 +1295,7 @@ namespace MediaTekDocuments.view
                 }
                 else
                 {
-                    MessageBox.Show("numéro introuvable");
+                    MessageBox.Show(MSG_NUMERO_INTROUVABLE);
                     VideCommandesLivresInfos();
                 }
             }
@@ -1447,17 +1450,17 @@ namespace MediaTekDocuments.view
                     }
                     else
                     {
-                        MessageBox.Show("erreur lors de l'ajout de la commande", "Erreur");
+                        MessageBox.Show("erreur lors de l'ajout de la commande", MSG_ERREUR);
                     }
                 }
                 catch
                 {
-                    MessageBox.Show("le montant et le nombre d'exemplaires doivent être numériques", "Information");
+                    MessageBox.Show("le montant et le nombre d'exemplaires doivent être numériques", MSG_INFORMATION);
                 }
             }
             else
             {
-                MessageBox.Show("tous les champs doivent être remplis", "Information");
+                MessageBox.Show("tous les champs doivent être remplis", MSG_INFORMATION);
             }
         }
 
@@ -1477,12 +1480,12 @@ namespace MediaTekDocuments.view
                     if ((commande.IdSuivi.Equals("LI") || commande.IdSuivi.Equals("RE")) &&
                         (suivi.Id.Equals("EC") || suivi.Id.Equals("RL")))
                     {
-                        MessageBox.Show("une commande livrée ou réglée ne peut pas revenir à une étape précédente", "Information");
+                        MessageBox.Show("une commande livrée ou réglée ne peut pas revenir à une étape précédente", MSG_INFORMATION);
                         return;
                     }
                     if (suivi.Id.Equals("RE") && !commande.IdSuivi.Equals("LI"))
                     {
-                        MessageBox.Show("une commande ne peut pas être réglée si elle n'est pas livrée", "Information");
+                        MessageBox.Show("une commande ne peut pas être réglée si elle n'est pas livrée", MSG_INFORMATION);
                         return;
                     }
                     commande.IdSuivi = suivi.Id;
@@ -1494,13 +1497,13 @@ namespace MediaTekDocuments.view
                     }
                     else
                     {
-                        MessageBox.Show("erreur lors de la modification du suivi", "Erreur");
+                        MessageBox.Show("erreur lors de la modification du suivi", MSG_ERREUR);
                     }
                 }
             }
             else
             {
-                MessageBox.Show("une commande doit être selectionnée", "Information");
+                MessageBox.Show("une commande doit être selectionnée", MSG_INFORMATION);
             }
         }
 
@@ -1516,7 +1519,7 @@ namespace MediaTekDocuments.view
                 CommandeDocument commande = (CommandeDocument)bdgCommandesLivresListe.List[bdgCommandesLivresListe.Position];
                 if (commande.IdSuivi.Equals("LI") || commande.IdSuivi.Equals("RE"))
                 {
-                    MessageBox.Show("impossible de supprimer une commande déjà livrée ou réglée", "Information");
+                    MessageBox.Show("impossible de supprimer une commande déjà livrée ou réglée", MSG_INFORMATION);
                     return;
                 }
                 if (MessageBox.Show("voulez-vous vraiment supprimer cette commande ?", "Confirmation", MessageBoxButtons.YesNo) == DialogResult.Yes)
@@ -1529,13 +1532,13 @@ namespace MediaTekDocuments.view
                     }
                     else
                     {
-                        MessageBox.Show("erreur lors de la suppression", "Erreur");
+                        MessageBox.Show("erreur lors de la suppression", MSG_ERREUR);
                     }
                 }
             }
             else
             {
-                MessageBox.Show("une commande doit être sélectionnée", "Information");
+                MessageBox.Show("une commande doit être sélectionnée", MSG_INFORMATION);
             }
         }
         #endregion
@@ -1577,7 +1580,7 @@ namespace MediaTekDocuments.view
                 }
                 else
                 {
-                    MessageBox.Show("numéro introuvable");
+                    MessageBox.Show(MSG_NUMERO_INTROUVABLE);
                     VideCommandesDvdInfos();
                 }
             }
@@ -1732,17 +1735,17 @@ namespace MediaTekDocuments.view
                     }
                     else
                     {
-                        MessageBox.Show("erreur lors de l'ajout de la commande", "Erreur");
+                        MessageBox.Show("erreur lors de l'ajout de la commande", MSG_ERREUR);
                     }
                 }
                 catch
                 {
-                    MessageBox.Show("le montant et le nombre d'exemplaires doivent être numériques", "Information");
+                    MessageBox.Show("le montant et le nombre d'exemplaires doivent être numériques", MSG_INFORMATION);
                 }
             }
             else
             {
-                MessageBox.Show("tous les champs doivent être remplis", "Information");
+                MessageBox.Show("tous les champs doivent être remplis", MSG_INFORMATION);
             }
         }
 
@@ -1762,12 +1765,12 @@ namespace MediaTekDocuments.view
                     if ((commande.IdSuivi.Equals("LI") || commande.IdSuivi.Equals("RE")) &&
                         (suivi.Id.Equals("EC") || suivi.Id.Equals("RL")))
                     {
-                        MessageBox.Show("une commande livrée ou réglée ne peut pas revenir à une étape précédente", "Information");
+                        MessageBox.Show("une commande livrée ou réglée ne peut pas revenir à une étape précédente", MSG_INFORMATION);
                         return;
                     }
                     if (suivi.Id.Equals("RE") && !commande.IdSuivi.Equals("LI"))
                     {
-                        MessageBox.Show("une commande ne peut pas être réglée si elle n'est pas livrée", "Information");
+                        MessageBox.Show("une commande ne peut pas être réglée si elle n'est pas livrée", MSG_INFORMATION);
                         return;
                     }
                     commande.IdSuivi = suivi.Id;
@@ -1779,13 +1782,13 @@ namespace MediaTekDocuments.view
                     }
                     else
                     {
-                        MessageBox.Show("erreur lors de la modification du suivi", "Erreur");
+                        MessageBox.Show("erreur lors de la modification du suivi", MSG_ERREUR);
                     }
                 }
             }
             else
             {
-                MessageBox.Show("une commande doit être selectionnée", "Information");
+                MessageBox.Show("une commande doit être selectionnée", MSG_INFORMATION);
             }
         }
 
@@ -1801,7 +1804,7 @@ namespace MediaTekDocuments.view
                 CommandeDocument commande = (CommandeDocument)bdgCommandesDvdListe.List[bdgCommandesDvdListe.Position];
                 if (commande.IdSuivi.Equals("LI") || commande.IdSuivi.Equals("RE"))
                 {
-                    MessageBox.Show("impossible de supprimer une commande déjà livrée ou réglée", "Information");
+                    MessageBox.Show("impossible de supprimer une commande déjà livrée ou réglée", MSG_INFORMATION);
                     return;
                 }
                 if (MessageBox.Show("voulez-vous vraiment supprimer cette commande ?", "Confirmation", MessageBoxButtons.YesNo) == DialogResult.Yes)
@@ -1814,13 +1817,13 @@ namespace MediaTekDocuments.view
                     }
                     else
                     {
-                        MessageBox.Show("erreur lors de la suppression", "Erreur");
+                        MessageBox.Show("erreur lors de la suppression", MSG_ERREUR);
                     }
                 }
             }
             else
             {
-                MessageBox.Show("une commande doit être sélectionnée", "Information");
+                MessageBox.Show("une commande doit être sélectionnée", MSG_INFORMATION);
             }
         }
         #endregion
@@ -1858,7 +1861,7 @@ namespace MediaTekDocuments.view
                 }
                 else
                 {
-                    MessageBox.Show("numéro introuvable");
+                    MessageBox.Show(MSG_NUMERO_INTROUVABLE);
                     VideCommandesRevuesInfos();
                 }
             }
@@ -1938,7 +1941,6 @@ namespace MediaTekDocuments.view
             {
                 try
                 {
-                    Abonnement abonnement = (Abonnement)bdgCommandesRevuesListe.List[bdgCommandesRevuesListe.Position];
                     grpCommandesRevuesSuppression.Enabled = true;
                 }
                 catch
@@ -2005,17 +2007,17 @@ namespace MediaTekDocuments.view
                     }
                     else
                     {
-                        MessageBox.Show("erreur lors de l'ajout de l'abonnement", "Erreur");
+                        MessageBox.Show("erreur lors de l'ajout de l'abonnement", MSG_ERREUR);
                     }
                 }
                 catch
                 {
-                    MessageBox.Show("le montant doit être numérique", "Information");
+                    MessageBox.Show("le montant doit être numérique", MSG_INFORMATION);
                 }
             }
             else
             {
-                MessageBox.Show("le montant doit être renseigné", "Information");
+                MessageBox.Show("le montant doit être renseigné", MSG_INFORMATION);
             }
         }
 
@@ -2034,7 +2036,7 @@ namespace MediaTekDocuments.view
                     Exemplaire.ParutionDansAbonnement(abonnement.DateCommande, abonnement.DateFinAbonnement, ex.DateAchat));
                 if (aDesExemplaires)
                 {
-                    MessageBox.Show("impossible de supprimer un abonnement avec des exemplaires rattachés", "Information");
+                    MessageBox.Show("impossible de supprimer un abonnement avec des exemplaires rattachés", MSG_INFORMATION);
                     return;
                 }
                 if (MessageBox.Show("voulez-vous vraiment supprimer cet abonnement ?", "Confirmation", MessageBoxButtons.YesNo) == DialogResult.Yes)
@@ -2047,13 +2049,13 @@ namespace MediaTekDocuments.view
                     }
                     else
                     {
-                        MessageBox.Show("erreur lors de la suppression", "Erreur");
+                        MessageBox.Show("erreur lors de la suppression", MSG_ERREUR);
                     }
                 }
             }
             else
             {
-                MessageBox.Show("un abonnement doit être sélectionné", "Information");
+                MessageBox.Show("un abonnement doit être sélectionné", MSG_INFORMATION);
             }
         }
         #endregion
