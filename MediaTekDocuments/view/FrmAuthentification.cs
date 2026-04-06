@@ -62,7 +62,7 @@ namespace MediaTekDocuments.view
                     else
                     {
                         List<AbonnementExpire> abonnementsBientotExpires = controller.GetRevuesAbonnementsBientotExpires();
-                        if (abonnementsBientotExpires.Count > 0)
+                        if (abonnementsBientotExpires.Count > 0 && utilisateur.Service.Id == "ADM")
                         {
                             FrmAlerte frmAlerte = new FrmAlerte(abonnementsBientotExpires);
                             frmAlerte.ShowDialog();
