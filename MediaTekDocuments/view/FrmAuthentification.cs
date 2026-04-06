@@ -1,6 +1,7 @@
 ﻿using MediaTekDocuments.controller;
 using MediaTekDocuments.model;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace MediaTekDocuments.view
@@ -60,6 +61,12 @@ namespace MediaTekDocuments.view
                     }
                     else
                     {
+                        List<AbonnementExpire> abonnementsBientotExpires = controller.GetRevuesAbonnementsBientotExpires();
+                        if (abonnementsBientotExpires.Count > 0)
+                        {
+                            FrmAlerte frmAlerte = new FrmAlerte(abonnementsBientotExpires);
+                            frmAlerte.ShowDialog();
+                        }
                         FrmMediatek frm = new FrmMediatek(utilisateur);
                         frm.ShowDialog();
                         this.Close();

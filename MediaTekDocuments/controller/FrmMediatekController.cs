@@ -145,5 +145,44 @@ namespace MediaTekDocuments.controller
         {
             return access.SupprimerCommandeDocument(commande);
         }
+
+        /// <summary>
+        /// Retourne les abonnements d'une revue
+        /// </summary>
+        /// <param name="idRevue">id de la revue concernée</param>
+        /// <returns>Liste d'objets Abonnement</returns>
+        public List<Abonnement> GetAbonnementsRevue(string idRevue)
+        {
+            return access.GetAbonnementsRevue(idRevue);
+        }
+
+        /// <summary>
+        /// Retourne les revues dont l'abonnement se termine dans moins de 30 jours
+        /// </summary>
+        /// <returns>Liste d'objets AbonnementExpire</returns>
+        public List<AbonnementExpire> GetRevuesAbonnementsBientotExpires()
+        {
+            return access.GetRevuesAbonnementsBientotExpires();
+        }
+
+        /// <summary>
+        /// Crée un abonnement dans la BDD
+        /// </summary>
+        /// <param name="abonnement">l'abonnement à créer</param>
+        /// <returns>true si la création a pu se faire</returns>
+        public bool CreerAbonnement(Abonnement abonnement)
+        {
+            return access.CreerAbonnement(abonnement);
+        }
+
+        /// <summary>
+        /// Supprime un abonnement dans la BDD
+        /// </summary>
+        /// <param name="abonnement">l'abonnement à supprimer</param>
+        /// <returns>true si la suppression a pu se faire</returns>
+        public bool SupprimerAbonnement(Abonnement abonnement)
+        {
+            return access.SupprimerAbonnement(abonnement);
+        }
     }
 }

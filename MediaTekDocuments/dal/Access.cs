@@ -300,6 +300,85 @@ namespace MediaTekDocuments.dal
         }
 
         /// <summary>
+        /// Retourne les abonnements d'une revue
+        /// </summary>
+        /// <param name="idRevue">id de la revue concernée</param>
+        /// <returns>Liste d'objets Abonnement</returns>
+        public List<Abonnement> GetAbonnementsRevue(string idRevue)
+        {
+            String jsonIdRevue = convertToJson("idRevue", idRevue);
+            List<Abonnement> lesAbonnements = TraitementRecup<Abonnement>(GET, "abonnement/" + jsonIdRevue, null);
+            return lesAbonnements;
+        }
+
+        /// <summary>
+        /// Retourne les revues dont l'abonnement se termine dans moins de 30 jours
+        /// </summary>
+        /// <returns>Liste d'objets AbonnementExpire</returns>
+        public List<AbonnementExpire> GetRevuesAbonnementsBientotExpires()
+        {
+            List<AbonnementExpire> lesAbonnements = TraitementRecup<AbonnementExpire>(GET, "abonnementexpire", null);
+            return lesAbonnements;
+        }
+
+        /// <summary>
+        /// Crée un abonnement dans la BDD
+        /// </summary>
+        /// <param name="abonnement">l'abonnement à créer</param>
+        /// <returns>true si la création a pu se faire</returns>
+        public bool CreerAbonnement(Abonnement abonnement)
+        {
+            try
+            {
+                // Insertion dans la table commande
+                Dictionary<string, object> champs1 = new Dictionary<string, object>();
+                champs1.Add("id", abonnement.Id);
+                champs1.Add("dateCommande", abonnement.DateCommande.ToString("yyyy-MM-dd"));
+                champs1.Add("montant", abonnement.Montant.ToString());
+                String jsonCommande = JsonConvert.SerializeObject(champs1);
+                List<Abonnement> liste1 = TraitementRecup<Abonnement>(POST, "commande", "champs=" + jsonCommande);
+                if (liste1 == null)
+                {
+                    Log.Error("Access.CreerAbonnement erreur insertion commande");
+                    return false;
+                }
+                // Insertion dans la table abonnement
+                Dictionary<string, object> champs2 = new Dictionary<string, object>();
+                champs2.Add("id", abonnement.Id);
+                champs2.Add("dateFinAbonnement", abonnement.DateFinAbonnement.ToString("yyyy-MM-dd"));
+                champs2.Add("idRevue", abonnement.IdRevue);
+                String jsonAbonnement = JsonConvert.SerializeObject(champs2);
+                List<Abonnement> liste2 = TraitementRecup<Abonnement>(POST, "abonnement", "champs=" + jsonAbonnement);
+                return (liste2 != null);
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Access.CreerAbonnement erreur={0}", ex.Message);
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Supprime un abonnement dans la BDD
+        /// </summary>
+        /// <param name="abonnement">l'abonnement à supprimer</param>
+        /// <returns>true si la suppression a pu se faire</returns>
+        public bool SupprimerAbonnement(Abonnement abonnement)
+        {
+            String jsonAbonnement = convertToJson("id", abonnement.Id);
+            try
+            {
+                List<Abonnement> liste = TraitementRecup<Abonnement>(DELETE, "abonnement/" + jsonAbonnement, null);
+                return (liste != null);
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Access.SupprimerAbonnement erreur={0}", ex.Message);
+            }
+            return false;
+        }
+
+        /// <summary>
         /// Traitement de la récupération du retour de l'api, avec conversion du json en liste pour les select (GET)
         /// </summary>
         /// <typeparam name="T"></typeparam>

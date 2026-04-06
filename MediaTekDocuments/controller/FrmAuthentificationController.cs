@@ -1,6 +1,8 @@
 ﻿
 using MediaTekDocuments.dal;
 using MediaTekDocuments.model;
+using System.Collections.Generic;
+
 
 namespace MediaTekDocuments.controller
 {
@@ -36,6 +38,15 @@ namespace MediaTekDocuments.controller
         public Utilisateur ControleAuthentification(string login, string pwd)
         {
             return access.ControleAuthentification(login, pwd);
+        }
+
+        /// <summary>
+        /// Retourne les revues dont l'abonnement se termine dans moins de 30 jours
+        /// </summary>
+        /// <returns>Liste d'objets AbonnementExpire</returns>
+        public List<AbonnementExpire> GetRevuesAbonnementsBientotExpires()
+        {
+            return access.GetRevuesAbonnementsBientotExpires();
         }
     }
 }
