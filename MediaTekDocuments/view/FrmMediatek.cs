@@ -45,6 +45,9 @@ namespace MediaTekDocuments.view
             if (utilisateur.Service.Id == "PRE")
             {
                 tabOngletsApplication.TabPages.Remove(tabReceptionRevue);
+                tabOngletsApplication.TabPages.Remove(tabCommandesLivres);
+                tabOngletsApplication.TabPages.Remove(tabCommandesDvd);
+                tabOngletsApplication.TabPages.Remove(tabCommandesRevues);
             }
         }
 
