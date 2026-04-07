@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 25 mars 2026 à 22:04
+-- Généré le : mar. 07 avr. 2026 à 01:57
 -- Version du serveur : 8.4.7
 -- Version de PHP : 8.3.28
 
@@ -50,6 +50,14 @@ CREATE TABLE IF NOT EXISTS `commande` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Déchargement des données de la table `commande`
+--
+
+INSERT INTO `commande` (`id`, `dateCommande`, `montant`) VALUES
+('82306', '2026-04-05', 20),
+('93139', '2026-04-05', 50);
+
 -- --------------------------------------------------------
 
 --
@@ -66,6 +74,14 @@ CREATE TABLE IF NOT EXISTS `commandedocument` (
   KEY `idLivreDvd` (`idLivreDvd`),
   KEY `fk_suivi` (`idSuivi`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `commandedocument`
+--
+
+INSERT INTO `commandedocument` (`id`, `nbExemplaire`, `idLivreDvd`, `idSuivi`) VALUES
+('82306', 1, '00007', 'RE'),
+('93139', 2, '00007', 'LI');
 
 --
 -- Déclencheurs `commandedocument`
