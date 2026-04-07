@@ -14,22 +14,21 @@
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
-    <InstallFrom>Web</InstallFrom>
-    <UpdateEnabled>true</UpdateEnabled>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://mediatekdocs86.atwebpages.com/</InstallUrl>
-    <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>0</ApplicationRevision>
+    <AutorunEnabled>true</AutorunEnabled>
+    <ApplicationRevision>1</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>true</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -127,9 +126,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="controller\FrmAuthentificationController.cs" />
+    <Compile Include="FrmAlerte.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAlerte.Designer.cs">
+      <DependentUpon>FrmAlerte.cs</DependentUpon>
+    </Compile>
     <Compile Include="manager\ApiRest.cs" />
     <Compile Include="controller\FrmMediatekController.cs" />
     <Compile Include="dal\Access.cs" />
+    <Compile Include="model\Abonnement.cs" />
+    <Compile Include="model\AbonnementExpire.cs" />
+    <Compile Include="model\CommandeDocument.cs" />
+    <Compile Include="model\Suivi.cs" />
     <Compile Include="model\Utilisateur.cs" />
     <Compile Include="model\Service.cs" />
     <Compile Include="view\FrmAuthentification.cs" />
@@ -155,6 +164,9 @@
     <Compile Include="model\Revue.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FrmAlerte.resx">
+      <DependentUpon>FrmAlerte.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
